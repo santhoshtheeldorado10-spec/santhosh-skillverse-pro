@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movie Explorer Pro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <img
+        src="https://res.cloudinary.com/dn0k6htsv/image/upload/v1774486952/ml9adffy0ofyljwrf9lc.png"
+        height="350"
+        width="350"
+      />
+      <h1 style="color: rgb(179, 20, 14)">🎬 Movie Explorer</h1>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search movies..." />
+        <input type="number" id="year" placeholder="Year" />
+      </div>
+
+      <p id="loading"></p>
+
+      <!-- Movies -->
+      <h3>🔥 Results</h3>
+      <div id="movies" class="row"></div>
+
+      <!-- Favorites -->
+      <h3>❤️ Favorites</h3>
+      <div id="favorites" class="row"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
