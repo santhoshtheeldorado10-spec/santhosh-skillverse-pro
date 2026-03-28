@@ -2,61 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pro Shop</title>
+    <title>Pro Weather App</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="header">
-      <h1>🛍️ kumezon</h1>
+    <div class="app">
+      <div class="top-bar">
+        <h2>🌦 Weather Dashboard</h2>
+        <button onclick="toggleTheme()">🌙</button>
+      </div>
 
-      <div class="controls">
-        <input type="text" id="search" placeholder="Search products..." />
-
-        <select id="category">
-          <option value="all">All</option>
-          <option value="electronics">Electronics</option>
-          <option value="fashion">Fashion</option>
-        </select>
-
-        <select id="sort">
-          <option value="">Sort</option>
-          <option value="low">Price Low</option>
-          <option value="high">Price High</option>
-          <option value="rating">Rating</option>
-        </select>
-
-        <div class="cart-box">
-          🛒 <span id="cartCount">0</span> | ₹<span id="totalPrice">0</span>
+      <div class="card glass">
+        <div class="search">
+          <input type="text" id="city" placeholder="Search city..." />
+          <button onclick="getWeather()">Search</button>
+          <button onclick="getLocation()">📍</button>
         </div>
+
+        <div class="weather">
+          <h2 id="cityName">City</h2>
+          <div id="icon">☀️</div>
+          <h1 id="temp">--°C</h1>
+          <p id="desc">---</p>
+
+          <div class="details">
+            <span id="humidity">Humidity</span>
+            <span id="wind">Wind</span>
+          </div>
+        </div>
+
+        <h3>5-Day Forecast</h3>
+
+        <div id="forecast" class="forecast"></div>
       </div>
-    </header>
-
-    <section id="products" class="products"></section>
-
-    <section id="contact" class="section container">
-      <h2>Contact Details:-</h2>
-      <br /><br />
-
-      <div class="glass card">
-        <p>📧 Email: santhosh@email.com</p>
-        <p>📍 Location: Tamil Nadu, India</p>
-        <p>📞 Phone: 9786058384</p>
-      </div>
-    </section>
-
-    <!-- MODAL -->
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <span id="close">&times;</span>
-        <img id="modalImg" />
-        <h2 id="modalTitle"></h2>
-        <p id="modalPrice"></p>
-      </div>
+      <br />
     </div>
-
-    <!-- TOAST -->
-    <div id="toast"></div>
 
     <script src="script.js"></script>
   </body>
