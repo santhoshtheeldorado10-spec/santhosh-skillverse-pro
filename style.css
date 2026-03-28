@@ -1,86 +1,119 @@
-body {
+* {
   margin: 0;
-  font-family: "Segoe UI";
-  background: #0f172a;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #141e30, #243b55);
   color: white;
 }
 
-.app {
+/* Header */
+.header {
+  text-align: center;
   padding: 20px;
-  text-align: center;
 }
 
-h1 {
-  text-align: center;
-}
-
-/* Filters */
-.filters {
+/* Controls */
+.controls {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.filters input {
-  flex: 1;
+input,
+select {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 6px;
   border: none;
 }
 
-/* Row (horizontal scroll) */
-.row {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding-bottom: 10px;
+/* Cart */
+.cart-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.row::-webkit-scrollbar {
-  height: 6px;
-}
-
-.row::-webkit-scrollbar-thumb {
-  background: gray;
+/* Products */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 /* Card */
 .card {
-  min-width: 150px;
-  background: #1e293b;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
   border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
+  padding: 15px;
+  text-align: center;
   transition: 0.3s;
 }
 
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Image */
 .card img {
   width: 100%;
+  height: 150px;
+  object-fit: contain;
 }
 
-.card:hover {
-  transform: scale(1.1);
-}
-
-/* Info */
-.info {
-  padding: 5px;
-}
-
-.fav {
-  color: red;
+/* Button */
+button {
+  background: #00c6ff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.delete-btn:hover {
-  background: darkred;
-}
-.fav.active {
-  color: hotpink;
-  transform: scale(1.2);
-  text-shadow: 0 0 8px hotpink;
+button:hover {
+  background: #0072ff;
 }
 
-#loading {
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background: white;
+  color: black;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
   text-align: center;
+  border-radius: 10px;
+}
+
+#close {
+  float: right;
+  cursor: pointer;
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
 }
