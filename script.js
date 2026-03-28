@@ -1,97 +1,104 @@
-const API_KEY = "1231acaea979d3c12a91dd465a436d5b";
+const API_KEY = "c38efc7f"; // works for testing
 
-// FETCH WEATHER
-async function getWeather(cityInput) {
-  let city = cityInput || document.getElementById("city").value;
+const moviesDiv = document.getElementById("movies");
+const favDiv = document.getElementById("favorites");
+const loading = document.getElementById("loading");
 
-  if (!city) return;
+let favs = JSON.parse(localStorage.getItem("favs")) || [];
 
-  try {
-    let res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
-    );
-    let data = await res.json();
+// Search
+document.getElementById("search").addEventListener("input", searchMovies);
+document.getElementById("year").addEventListener("input", searchMovies);
 
-    document.getElementById("cityName").innerText = data.name;
-    document.getElementById("temp").innerText = data.main.temp + "°C";
-    document.getElementById("desc").innerText = data.weather[0].main;
-    document.getElementById("humidity").innerText =
-      "💧Humidity " + data.main.humidity + "%";
-    document.getElementById("wind").innerText =
-      "🌬 Wind " + data.wind.speed + " km/h";
+async function searchMovies() {
+  let q = document.getElementById("search").value;
+  let y = document.getElementById("year").value;
 
-    setIcon(data.weather[0].main);
-    changeBG(data.weather[0].main);
+  if (q.length < 2) return;
 
-    let res2 = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`,
-    );
-    let forecast = await res2.json();
+  loading.innerText = "Loading...";
 
-    showForecast(forecast);
-  } catch {
-    alert("City not found");
+  let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${q}`;
+  if (y) url += `&y=${y}`;
+
+  let res = await fetch(url);
+  let data = await res.json();
+
+  loading.innerText = "";
+
+  if (data.Response === "False") {
+    moviesDiv.innerHTML = "No results";
+    return;
   }
+
+  showMovies(data.Search);
 }
 
-// LOCATION
-function getLocation() {
-  navigator.geolocation.getCurrentPosition(async (pos) => {
-    let { latitude, longitude } = pos.coords;
+// Show movies
+function showMovies(list) {
+  moviesDiv.innerHTML = "";
 
-    let res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`,
-    );
-    let data = await res.json();
+  list.forEach((m) => {
+    let poster =
+      m.Poster !== "N/A" ? m.Poster : "https://via.placeholder.com/150x220";
 
-    getWeather(data.name);
-  });
-}
-
-// ICON
-function setIcon(cond) {
-  let icon = document.getElementById("icon");
-
-  if (cond.includes("Cloud")) icon.innerText = "☁️";
-  else if (cond.includes("Rain")) icon.innerText = "🌧️";
-  else if (cond.includes("Clear")) icon.innerText = "☀️";
-  else icon.innerText = "🌤️";
-}
-
-// FORECAST
-function showForecast(data) {
-  let box = document.getElementById("forecast");
-  box.innerHTML = "";
-
-  let days = data.list.filter((i) => i.dt_txt.includes("12:00:00"));
-
-  days.forEach((day) => {
-    let d = new Date(day.dt_txt);
+    let isFav = favs.includes(m.imdbID);
 
     let div = document.createElement("div");
+    div.className = "card";
+
     div.innerHTML = `
-      <p>${d.toLocaleDateString()}</p>
-      <p>${day.main.temp}°C</p>
+      <img src="${poster}">
+      <div class="info">
+        <h4>${m.Title}</h4>
+        <p>${m.Year}</p>
+        <span class="fav">${isFav ? "❤️" : "🤍"}</span>
+      </div>
     `;
 
-    box.appendChild(div);
+    // Favorite
+    div.querySelector(".fav").onclick = (e) => {
+      e.stopPropagation();
+      toggleFav(m);
+    };
+
+    moviesDiv.appendChild(div);
   });
 }
 
-// BACKGROUND
-function changeBG(cond) {
-  let body = document.body;
+// Favorites
+function toggleFav(movie) {
+  let index = favs.findIndex((f) => f.imdbID === movie.imdbID);
 
-  if (cond.includes("Clear")) {
-    body.style.background = "linear-gradient(135deg, #f7971e, #ffd200)";
-  } else if (cond.includes("Cloud")) {
-    body.style.background = "linear-gradient(135deg, #bdc3c7, #2c3e50)";
-  } else if (cond.includes("Rain")) {
-    body.style.background = "linear-gradient(135deg, #373b44, #4286f4)";
+  if (index > -1) {
+    favs.splice(index, 1);
+  } else {
+    favs.push(movie);
   }
+
+  localStorage.setItem("favs", JSON.stringify(favs));
+  renderFavs();
 }
 
-// DARK MODE
-function toggleTheme() {
-  document.body.classList.toggle("dark");
+// Render favorites
+function renderFavs() {
+  favDiv.innerHTML = "";
+
+  favs.forEach((m) => {
+    let div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <img src="${m.Poster}">
+      <div class="info">
+        <h4>${m.Title}</h4>
+        <p>${m.Year}</p>
+      </div>
+    `;
+
+    favDiv.appendChild(div);
+  });
 }
+
+// Init
+renderFavs();

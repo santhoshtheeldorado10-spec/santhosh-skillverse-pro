@@ -2,40 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Pro Weather App</title>
+    <title>Movie Explorer Pro</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="app">
-      <div class="top-bar">
-        <h2>🌦 Weather Dashboard</h2>
-        <button onclick="toggleTheme()">🌙</button>
+      <img
+        src="https://res.cloudinary.com/dn0k6htsv/image/upload/v1774486952/ml9adffy0ofyljwrf9lc.png"
+        height="350"
+        width="350"
+      />
+      <h1 style="color: rgb(179, 20, 14)">🎬 Movie Explorer</h1>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search movies..." />
+        <input type="number" id="year" placeholder="Year" />
       </div>
 
-      <div class="card glass">
-        <div class="search">
-          <input type="text" id="city" placeholder="Search city..." />
-          <button onclick="getWeather()">Search</button>
-          <button onclick="getLocation()">📍</button>
-        </div>
+      <p id="loading"></p>
 
-        <div class="weather">
-          <h2 id="cityName">City</h2>
-          <div id="icon">☀️</div>
-          <h1 id="temp">--°C</h1>
-          <p id="desc">---</p>
+      <!-- Movies -->
+      <h3>🔥 Results</h3>
+      <div id="movies" class="row"></div>
 
-          <div class="details">
-            <span id="humidity">Humidity</span>
-            <span id="wind">Wind</span>
-          </div>
-        </div>
-
-        <h3>5-Day Forecast</h3>
-
-        <div id="forecast" class="forecast"></div>
-      </div>
-      <br />
+      <!-- Favorites -->
+      <h3>❤️ Favorites</h3>
+      <div id="favorites" class="row"></div>
     </div>
 
     <script src="script.js"></script>

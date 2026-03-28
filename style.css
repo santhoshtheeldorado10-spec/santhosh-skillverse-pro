@@ -1,123 +1,86 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI";
-}
-
 body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  transition: 0.5s;
-}
-
-/* Dark Mode */
-.dark {
-  background: linear-gradient(135deg, #0f2027, #203a43);
+  margin: 0;
+  font-family: "Segoe UI";
+  background: #0f172a;
+  color: white;
 }
 
 .app {
-  width: 320px;
-}
-
-/* Top Bar */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  margin-bottom: 10px;
-}
-
-/* Glass Card */
-.glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  padding: 30px;
-  width: 380px;
-  height: 420px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 1s ease;
+  padding: 20px;
   text-align: center;
 }
 
-/* Search */
-.search {
+h1 {
+  text-align: center;
+}
+
+/* Filters */
+.filters {
   display: flex;
-  gap: 5px;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.search input {
+.filters input {
   flex: 1;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
 }
 
-.search button {
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  background: #3b82f6;
-  color: white;
+/* Row (horizontal scroll) */
+.row {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.row::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+/* Card */
+.card {
+  min-width: 150px;
+  background: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+/* Info */
+.info {
+  padding: 5px;
+}
+
+.fav {
+  color: red;
   cursor: pointer;
 }
 
-/* Weather */
-.weather {
+.delete-btn:hover {
+  background: darkred;
+}
+.fav.active {
+  color: hotpink;
+  transform: scale(1.2);
+  text-shadow: 0 0 8px hotpink;
+}
+
+#loading {
   text-align: center;
-  margin-bottom: 10px;
-}
-
-#icon {
-  font-size: 50px;
-  margin: 10px 0;
-  animation: float 2s infinite;
-}
-
-.details {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-/* Forecast */
-.forecast {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-}
-
-.forecast div {
-  min-width: 60px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 11px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
